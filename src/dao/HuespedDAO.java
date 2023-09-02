@@ -1,5 +1,7 @@
 package dao;
 
+import java.math.BigInteger;
+
 import javax.persistence.EntityManager;
 
 import model.Huesped;
@@ -14,10 +16,15 @@ public class HuespedDAO {
 		em.close();
 	}
 	
-	public void updateHuesped(Huesped huesped) {
+	public void updateHuesped(String name) {
 		em.getTransaction().begin();
-		em.persist(huesped);
-		Huesped huespedUpdate = em.find(Huesped.class, huesped);
+		Huesped huespedUpdate = em.find(Huesped.class, name);
+		em.close();
+	}
+	
+	public void updateHuesped(BigInteger id) {
+		em.getTransaction().begin();
+		Huesped huespedUpdate = em.find(Huesped.class, id);
 		em.close();
 	}
 	

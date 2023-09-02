@@ -31,6 +31,8 @@ public class TransactionAluraHotel {
 			
 		}
 		
+		
+		
 		em.getTransaction().commit();
 		em.close();
 	}

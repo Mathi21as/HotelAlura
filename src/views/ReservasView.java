@@ -277,7 +277,7 @@ public class ReservasView extends JFrame {
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtValor.setForeground(Color.BLACK);
 		txtValor.setBounds(78, 328, 43, 33);
-		txtValor.setEditable(false);
+		txtValor.setEditable(true);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panel.add(txtValor);
@@ -305,6 +305,7 @@ public class ReservasView extends JFrame {
 			}						
 		});
 		btnsiguiente.setLayout(null);
+		btnsiguiente.add(lblSiguiente);
 		btnsiguiente.setBackground(SystemColor.textHighlight);
 		btnsiguiente.setBounds(238, 493, 122, 35);
 		panel.add(btnsiguiente);
