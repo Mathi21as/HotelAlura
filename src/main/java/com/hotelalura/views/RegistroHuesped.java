@@ -70,7 +70,11 @@ public class RegistroHuesped extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistroHuesped() {}
+<<<<<<< HEAD
 	public RegistroHuesped(BigInteger bookingId) {
+=======
+	public RegistroHuesped(Reserva reservaCreada) {
+>>>>>>> c3e6c8721d7ef20b353812b791575d156cfba096
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,7 +224,11 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setEditable(false);
+<<<<<<< HEAD
 		txtNreserva.setText(bookingId.toString());
+=======
+		txtNreserva.setText(reservaCreada.getId().toString());
+>>>>>>> c3e6c8721d7ef20b353812b791575d156cfba096
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -267,7 +275,11 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+<<<<<<< HEAD
 				Huesped huesped = new Huesped(bookingId, txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
+=======
+				Huesped huesped = new Huesped(reservaCreada, txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
+>>>>>>> c3e6c8721d7ef20b353812b791575d156cfba096
 				TransactionAluraHotel transaction = new TransactionAluraHotel(huesped, "insert");
 				transaction.mainMethod();
 				frame.setVisible(false);
