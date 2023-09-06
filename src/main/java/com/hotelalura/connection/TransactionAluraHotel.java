@@ -52,18 +52,19 @@ public class TransactionAluraHotel {
 	}
 	
 	public void mainMethod() {
-		//em.getTransaction().begin();
+		em.getTransaction().begin();
 		if(huesped == null) {
-			em.getTransaction().begin();
+			//em.getTransaction().begin();
 			em.persist(reserva);
 			operations(reserva, em);
-			em.getTransaction().commit();
-			em.close();
+			
 		}
 		else {
 			em.persist(huesped);
 			operations(huesped, em);
 		}
+		em.getTransaction().commit();
+		em.close();
 
 	}
 	

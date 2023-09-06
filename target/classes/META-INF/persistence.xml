@@ -5,7 +5,8 @@
      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
      http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
  
-    <persistence-unit name="alurahotel" transaction-type="JTA">
+    <persistence-unit name="alurahotel" transaction-type="RESOURCE_LOCAL">
+		<class>com.hotelalura.utils.JPAUtils</class>
         <properties>          
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/alurahotel" />
@@ -14,6 +15,7 @@
             
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -13,7 +13,7 @@ public class ReservaDAO {
 	public Reserva insertReserva(Reserva reserva, EntityManager em) {
 		//em.getTransaction().begin();
 		em.persist(reserva);
-		return em.getReference(Reserva.class, reserva);
+		return em.getReference(Reserva.class, reserva.getId());
 		//em.close();
 	}
 	
