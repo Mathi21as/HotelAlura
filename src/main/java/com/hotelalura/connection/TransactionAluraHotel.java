@@ -15,9 +15,9 @@ public class TransactionAluraHotel {
 	private Huesped huesped;
 	private Reserva reserva;
 	private String mode; //this variable will contain accion type (insert, update or delete a regist)
-	private BigInteger reservaCreada;
+	private Reserva reservaCreada;
 	
-	public BigInteger getReservaCreada() {
+	public Reserva getReservaCreada() {
 		return this.reservaCreada;
 	}
 	
@@ -38,6 +38,9 @@ public class TransactionAluraHotel {
 				huespedDAO.insertHuesped(huesped, em);
 				return;
 			}
+			case "read":
+			case "update":
+			case "delete":
 		}
 	}
 	
@@ -45,21 +48,22 @@ public class TransactionAluraHotel {
 		switch(this.mode) {
 			case "insert": {
 				ReservaDAO reservaDAO = new ReservaDAO();
-				this.reservaCreada = reservaDAO.insertReserva(reserva, em).getId();
+				this.reservaCreada = reservaDAO.insertReserva(reserva, em);
 				return;
 			}
+			case "read":
+			case "update":
+			case "delete":
 		}
 	}
 	
 	public void mainMethod() {
 		em.getTransaction().begin();
-		if(huesped == null) {
-			//em.getTransaction().begin();
+		if(reserva != null) {
 			em.persist(reserva);
 			operations(reserva, em);
-			
 		}
-		else {
+		else{
 			em.persist(huesped);
 			operations(huesped, em);
 		}

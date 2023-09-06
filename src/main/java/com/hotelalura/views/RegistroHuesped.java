@@ -70,7 +70,7 @@ public class RegistroHuesped extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistroHuesped() {}
-	public RegistroHuesped(BigInteger bookingId) {
+	public RegistroHuesped(Reserva reserva) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
@@ -219,7 +219,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setEditable(false);
-		txtNreserva.setText(bookingId.toString());
+		txtNreserva.setText(""); //TODO: agree the booking id for this huesped
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -266,7 +266,7 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Huesped huesped = new Huesped(bookingId, txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
+				Huesped huesped = new Huesped(txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
 				TransactionAluraHotel transaction = new TransactionAluraHotel(huesped, "insert");
 				transaction.mainMethod();
 				frame.setVisible(false);

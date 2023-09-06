@@ -10,31 +10,28 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import jakarta.persistence.OneToOne;
-
 @Entity
 @Table(name="huespedes")
 public class Huesped {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
-	private BigInteger bookingId;
 	private String nameHuesped;
 	private String surname;
 	private Date birthdate;
 	private String phone;
 	
-	public Huesped(BigInteger bookingId, String name, String surname, Date birthdate, String phone) {
-		this.bookingId = bookingId;
+	public Huesped(String name, String surname, Date birthdate, String phone) {
 		this.nameHuesped = name;
 		this.surname = surname;
 		this.birthdate = birthdate;
 		this.phone = phone;
 	}
 	
-	public BigInteger getBookingId() {
-		return bookingId;//.getId();
+	public BigInteger getId() {
+		return this.id;
 	}
+	
 	public String getName() {
 		return nameHuesped;
 	}
@@ -62,7 +59,7 @@ public class Huesped {
 
 	@Override
 	public String toString() {
-		return "Huesped [id=" + id + ", bookingId=" + bookingId + ", name=" + nameHuesped + ", surname=" + surname
+		return "Huesped [id=" + id + ", name=" + nameHuesped + ", surname=" + surname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + "]";
 	}
 	

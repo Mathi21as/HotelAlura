@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,13 +16,16 @@ public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
+	@ManyToOne
+	private Huesped huesped;
 	private Date entryDate;
 	private Date departureDate;
 	private String valueReserva;
 	private String wayToPay;
 	
-	public Reserva(Date entryDate, Date departureDate, String value, String wayToPay) {
+	public Reserva(Huesped huesped, Date entryDate, Date departureDate, String value, String wayToPay) {
 		this.id = null;
+		this.huesped = huesped;
 		this.entryDate = entryDate;
 		this.departureDate = departureDate;
 		this.valueReserva = value;
@@ -30,6 +34,10 @@ public class Reserva {
 	
 	public BigInteger getId() {
 		return this.id;
+	}
+	
+	public BigInteger getHuespedId() {
+		return this.huesped.getId();
 	}
 	
 	public Date getEntryDate() {
