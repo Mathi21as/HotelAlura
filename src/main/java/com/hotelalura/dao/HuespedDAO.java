@@ -1,6 +1,7 @@
 package com.hotelalura.dao;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -10,25 +11,28 @@ import com.hotelalura.utils.JPAUtils;
 public class HuespedDAO {
 	private EntityManager em = JPAUtils.getEntityManager();
 	
-	public void insertHuesped(Huesped huesped, EntityManager em) {
+	public void insert(Huesped huesped, EntityManager em) {
 		//em.getTransaction().begin();
 		em.persist(huesped);
 		//em.close();
 	}
-	
-	public void updateHuesped(String name) {
-		em.getTransaction().begin();
-		Huesped huespedUpdate = em.find(Huesped.class, name);
-		em.close();
+
+	public List<Huesped> findAll (EntityManager em){
+		String query = "SELECT * FROM Huesped h";
+		return em.createQuery(query, Huesped.class).getResultList();
+	}
+
+	public Huesped findById(BigInteger id, EntityManager em){
+		return em.find(Huesped.class, id);
 	}
 	
-	public void updateHuesped(BigInteger id) {
+	public void update(BigInteger id) {
 		em.getTransaction().begin();
 		Huesped huespedUpdate = em.find(Huesped.class, id);
 		em.close();
 	}
 	
-	public void deleteHuesped(Huesped huesped) {
+	public void delete(Huesped huesped) {
 		em.getTransaction().begin();
 		em.persist(huesped);
 		em.getTransaction().commit();

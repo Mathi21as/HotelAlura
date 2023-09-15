@@ -1,5 +1,7 @@
 package com.hotelalura.model;
 
+import com.hotelalura.model.Huesped;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="reserva")
+@Table(name="Reservas")
 public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
