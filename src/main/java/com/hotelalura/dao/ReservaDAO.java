@@ -9,32 +9,55 @@ import com.hotelalura.model.Reserva;
 import com.hotelalura.utils.JPAUtils;
 
 public class ReservaDAO {
-	private EntityManager em = JPAUtils.getEntityManager();
-	
-	public Reserva insert(Reserva reserva, EntityManager em) {
-		//em.getTransaction().begin();
+	public Reserva insert(Reserva reserva) {
+		EntityManager em = JPAUtils.getEntityManager();
+		Reserva reservaCreada;
+
+		em.getTransaction().begin();
 		em.persist(reserva);
-		return em.getReference(Reserva.class, reserva.getId());
-		//em.close();
+		reservaCreada = em.getReference(Reserva.class, reserva.getId());
+		em.getTransaction().commit();
+		em.close();
+
+		return reservaCreada;
 	}
 	
-	public List<Reserva> findAll (EntityManager em){
+	public List<Reserva> findAll (){
+		EntityManager em = JPAUtils.getEntityManager();
+		List<Reserva> reservas;
 		String query = "SELECT * FROM Reserva r";
-		return em.createQuery(query, Reserva.class).getResultList();
+
+		em.getTransaction().begin();
+		reservas = em.createQuery(query, Reserva.class).getResultList();
+		em.close();
+
+		return reservas;
 	}
 
-	public Reserva findById (BigInteger id, EntityManager em){
-		return em.find(Reserva.class, id);
+	public Reserva findById (BigInteger id){
+		EntityManager em = JPAUtils.getEntityManager();
+		Reserva reserva;
+
+		em.getTransaction().begin();
+		reserva = em.find(Reserva.class, id);
+		em.close();
+
+		return reserva;
 	}
 
 	public void update(BigInteger id) {
-		em.getTransaction().begin();
-		Reserva reservaUpdate = em.find(Reserva.class, id);
+		EntityManager em = JPAUtils.getEntityManager();
+		Reserva reservaUpdate;
 		
+		em.getTransaction().begin();
+		reservaUpdate = em.find(Reserva.class, id);
+		//Insert update fields
+		em.getTransaction().commit();
 		em.close();
 	}
 	
 	public void delete(BigInteger id) {
+		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
 		Reserva reservaDelete = em.find(Reserva.class, id);
 		em.remove(reservaDelete);

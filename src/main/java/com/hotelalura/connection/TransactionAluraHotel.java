@@ -35,7 +35,7 @@ public class TransactionAluraHotel {
 		switch(this.mode) {
 			case "insert": {
 				HuespedDAO huespedDAO = new HuespedDAO();
-				huespedDAO.insertHuesped(huesped, em);
+				huespedDAO.insert(huesped);
 				return;
 			}
 			case "read":
@@ -48,7 +48,7 @@ public class TransactionAluraHotel {
 		switch(this.mode) {
 			case "insert": {
 				ReservaDAO reservaDAO = new ReservaDAO();
-				this.reservaCreada = reservaDAO.insertReserva(reserva, em);
+				this.reservaCreada = reservaDAO.insert(reserva);
 				return;
 			}
 			case "read":

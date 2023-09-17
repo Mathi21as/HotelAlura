@@ -9,32 +9,52 @@ import com.hotelalura.model.Huesped;
 import com.hotelalura.utils.JPAUtils;
 
 public class HuespedDAO {
-	private EntityManager em = JPAUtils.getEntityManager();
-	
-	public void insert(Huesped huesped, EntityManager em) {
-		//em.getTransaction().begin();
+	public void insert(Huesped huesped) {
+		EntityManager em = JPAUtils.getEntityManager();
+		em.getTransaction().begin();
 		em.persist(huesped);
-		//em.close();
+		em.getTransaction().commit();
+		em.close();
 	}
 
-	public List<Huesped> findAll (EntityManager em){
+	public List<Huesped> findAll (){
+		EntityManager em = JPAUtils.getEntityManager();
 		String query = "SELECT * FROM Huesped h";
-		return em.createQuery(query, Huesped.class).getResultList();
+		List<Huesped> list;
+
+		em.getTransaction().begin();
+		list = em.createQuery(query, Huesped.class).getResultList();
+		em.close();
+
+		return list;
 	}
 
-	public Huesped findById(BigInteger id, EntityManager em){
-		return em.find(Huesped.class, id);
+	public List<Huesped> findByLastname(String surname){
+		EntityManager em = JPAUtils.getEntityManager();
+		String query = "SELECT * FROM Huesped h WHERE h.surname = :surname";
+		List<Huesped> list;
+
+		em.getTransaction().begin();
+		list = em.createQuery(query, Huesped.class).getResultList();
+		em.close();
+
+		return list;
 	}
 	
 	public void update(BigInteger id) {
+		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
 		Huesped huespedUpdate = em.find(Huesped.class, id);
+		//Insert update fields
+		em.getTransaction().commit();
 		em.close();
 	}
 	
 	public void delete(Huesped huesped) {
+		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
-		em.persist(huesped);
+		Huesped huespedDel = em.find(Huesped.class, huesped.getId());
+		em.remove(huespedDel);
 		em.getTransaction().commit();
 		em.close();
 	}
