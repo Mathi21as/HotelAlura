@@ -9,7 +9,28 @@ import com.hotelalura.model.Huesped;
 import com.hotelalura.utils.JPAUtils;
 
 public class HuespedDAO {
-	public void insert(Huesped huesped) {
+	public Huesped insert(Huesped huesped) {
+		EntityManager em = JPAUtils.getEntityManager();
+		String query = "SELECT h FROM Huesped AS h WHERE h.phone = :phone";
+		Huesped huespedRes = null;
+		
+		try {
+			em.getTransaction().begin();
+			huespedRes = (Huesped) em.createQuery(query, Huesped.class).setParameter("phone", (huesped.getPhone())).getResultList().get(0);
+			em.close();
+		} catch (IndexOutOfBoundsException e) {
+			
+		}
+		
+		if(huespedRes != null)
+			return huespedRes;
+		else
+			insertNew(huesped);
+		
+		return null;
+	}
+	
+	public void insertNew(Huesped huesped) {
 		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(huesped);
@@ -19,7 +40,7 @@ public class HuespedDAO {
 
 	public List<Huesped> findAll (){
 		EntityManager em = JPAUtils.getEntityManager();
-		String query = "SELECT * FROM Huesped h";
+		String query = "SELECT * FROM Huesped AS h";
 		List<Huesped> list;
 
 		em.getTransaction().begin();
@@ -31,7 +52,7 @@ public class HuespedDAO {
 
 	public List<Huesped> findByLastname(String surname){
 		EntityManager em = JPAUtils.getEntityManager();
-		String query = "SELECT * FROM Huesped h WHERE h.surname = :surname";
+		String query = "SELECT * FROM Huesped AS h WHERE h.surname = :surname";
 		List<Huesped> list;
 
 		em.getTransaction().begin();

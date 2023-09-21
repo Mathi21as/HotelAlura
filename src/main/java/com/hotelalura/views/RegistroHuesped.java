@@ -269,10 +269,16 @@ public class RegistroHuesped extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Huesped huesped = new Huesped(txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
-				reserva.setHuesped(huesped);
+				Huesped huespedRes;
 				HuespedDAO huespedDAO = new HuespedDAO();
 				ReservaDAO reservaDAO = new ReservaDAO();
-				huespedDAO.insert(huesped);
+				huespedRes = huespedDAO.insert(huesped);
+				
+				if(huespedRes != null)
+					reserva.setHuesped(huespedRes);
+				else
+					reserva.setHuesped(huesped);
+				
 				reservaDAO.insert(reserva);
 				frame.setVisible(false);
 			}

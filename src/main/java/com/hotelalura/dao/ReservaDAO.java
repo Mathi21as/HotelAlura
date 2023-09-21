@@ -29,11 +29,14 @@ public class ReservaDAO {
 
 		em.getTransaction().begin();
 		id = (BigInteger) em.createQuery(query, BigInteger.class).getSingleResult();
-		System.out.println(id);
 		em.close();
-		id.add(BigInteger.ONE);
+		if(id != null) {
+			return String.valueOf(id.add(BigInteger.valueOf(1)));
+		} else {
+			return "1";
+		}
 		
-		return id.toString();
+		
 	}
 	
 	public List<Reserva> findAll (){

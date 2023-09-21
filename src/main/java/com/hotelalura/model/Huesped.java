@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import jakarta.persistence.Column;
@@ -18,14 +17,17 @@ public class Huesped {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
-	@Column(name="name_huesped")
-	private String nameHuesped;
+	private String name_huesped;
 	private String surname;
 	private Date birthdate;
+	@Column(unique = true)
 	private String phone;
 	
+	public Huesped() {}
+	
 	public Huesped(String name, String surname, Date birthdate, String phone) {
-		this.nameHuesped = name;
+		this.id = null;
+		this.name_huesped = name;
 		this.surname = surname;
 		this.birthdate = birthdate;
 		this.phone = phone;
@@ -36,10 +38,10 @@ public class Huesped {
 	}
 	
 	public String getName() {
-		return nameHuesped;
+		return name_huesped;
 	}
 	public void setName(String name) {
-		this.nameHuesped = name;
+		this.name_huesped = name;
 	}
 	public String getSurname() {
 		return surname;
@@ -62,7 +64,7 @@ public class Huesped {
 
 	@Override
 	public String toString() {
-		return "Huesped [id=" + id + ", name=" + nameHuesped + ", surname=" + surname
+		return "Huesped [id=" + id + ", name=" + name_huesped + ", surname=" + surname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + "]";
 	}
 	

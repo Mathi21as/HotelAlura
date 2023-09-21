@@ -25,6 +25,8 @@ public class Reserva {
 	private String valueReserva;
 	private String wayToPay;
 	
+	public Reserva() {}
+	
 	public Reserva(Date entryDate, Date departureDate, String value, String wayToPay) {
 		this.id = null;
 		this.entryDate = entryDate;
