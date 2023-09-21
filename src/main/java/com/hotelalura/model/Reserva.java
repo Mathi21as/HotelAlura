@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Reservas")
+@Table(name="reservas")
 public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,8 @@ public class Reserva {
 	private String valueReserva;
 	private String wayToPay;
 	
-	public Reserva(Huesped huesped, Date entryDate, Date departureDate, String value, String wayToPay) {
+	public Reserva(Date entryDate, Date departureDate, String value, String wayToPay) {
 		this.id = null;
-		this.huesped = huesped;
 		this.entryDate = entryDate;
 		this.departureDate = departureDate;
 		this.valueReserva = value;
@@ -40,6 +39,10 @@ public class Reserva {
 	
 	public BigInteger getHuespedId() {
 		return this.huesped.getId();
+	}
+	
+	public void setHuesped(Huesped huesped) {
+		this.huesped = huesped;
 	}
 	
 	public Date getEntryDate() {

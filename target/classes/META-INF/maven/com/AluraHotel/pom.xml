@@ -6,7 +6,7 @@
   <name>AluraHotel</name>
   <description>Alura and Oracle Hotel Alura Challenge</description>
   <build>
-    <sourceDirectory>java</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
       <resource>
         <directory>java</directory>

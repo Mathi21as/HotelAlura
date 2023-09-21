@@ -22,10 +22,24 @@ public class ReservaDAO {
 		return reservaCreada;
 	}
 	
+	public String getMaxId() {
+		EntityManager em = JPAUtils.getEntityManager();
+		BigInteger id;
+		String query = "SELECT MAX(r.id) FROM Reserva AS r";
+
+		em.getTransaction().begin();
+		id = (BigInteger) em.createQuery(query, BigInteger.class).getSingleResult();
+		System.out.println(id);
+		em.close();
+		id.add(BigInteger.ONE);
+		
+		return id.toString();
+	}
+	
 	public List<Reserva> findAll (){
 		EntityManager em = JPAUtils.getEntityManager();
 		List<Reserva> reservas;
-		String query = "SELECT * FROM Reserva r";
+		String query = "SELECT * FROM Reserva AS r";
 
 		em.getTransaction().begin();
 		reservas = em.createQuery(query, Reserva.class).getResultList();

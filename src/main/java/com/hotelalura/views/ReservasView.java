@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-import com.hotelalura.connection.TransactionAluraHotel;
 import com.hotelalura.model.Huesped;
 import com.hotelalura.model.Reserva;
 
@@ -64,9 +63,9 @@ public class ReservasView extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public ReservasView() {}
+	//public ReservasView() {}
 	
-	public ReservasView(Huesped huesped, String operationType) {
+	public ReservasView() {
 		super("Reserva");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/com/hotelalura/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -306,9 +305,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
-					Reserva reserva = new Reserva(huesped, txtFechaEntrada.getDate(), txtFechaSalida.getDate(), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
-					TransactionAluraHotel transaction = new TransactionAluraHotel(reserva, operationType == "" ? "insert" : operationType);
-					transaction.mainMethod();
+					Reserva reserva = new Reserva(txtFechaEntrada.getDate(), txtFechaSalida.getDate(), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
 					RegistroHuesped registro = new RegistroHuesped(reserva);
 					registro.setVisible(true);
 				} else {

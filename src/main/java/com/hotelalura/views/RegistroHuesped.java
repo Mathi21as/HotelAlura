@@ -9,7 +9,8 @@ import java.awt.Color;
 
 import com.toedter.calendar.JDateChooser;
 
-import com.hotelalura.connection.TransactionAluraHotel;
+import com.hotelalura.dao.HuespedDAO;
+import com.hotelalura.dao.ReservaDAO;
 import com.hotelalura.model.Huesped;
 import com.hotelalura.model.Reserva;
 
@@ -70,6 +71,7 @@ public class RegistroHuesped extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistroHuesped() {}
+	
 	public RegistroHuesped(Reserva reserva) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -219,7 +221,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setEditable(false);
-		txtNreserva.setText(""); //TODO: agree the booking id for this huesped
+		txtNreserva.setText(getMaxIdReserva()); //TODO: agree the booking id for this huesped
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -267,8 +269,11 @@ public class RegistroHuesped extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Huesped huesped = new Huesped(txtNombre.getText(), txtApellido.getText(), txtFechaN.getDate(), txtTelefono.getText());
-				TransactionAluraHotel transaction = new TransactionAluraHotel(huesped, "insert");
-				transaction.mainMethod();
+				reserva.setHuesped(huesped);
+				HuespedDAO huespedDAO = new HuespedDAO();
+				ReservaDAO reservaDAO = new ReservaDAO();
+				huespedDAO.insert(huesped);
+				reservaDAO.insert(reserva);
 				frame.setVisible(false);
 			}
 		});
@@ -332,17 +337,22 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
 	
+	public String getMaxIdReserva() {
+		ReservaDAO res = new ReservaDAO();
+		return res.getMaxId();
+	}
+	
 	
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
-	    }
+	 }
 
-	    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+	 private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 	        int x = evt.getXOnScreen();
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
-}
+	 }
 											
 }

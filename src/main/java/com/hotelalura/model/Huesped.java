@@ -10,12 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import jakarta.persistence.Column;
+
 @Entity
-@Table(name="Huespedes")
+@Table(name="huespedes")
 public class Huesped {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
+	@Column(name="name_huesped")
 	private String nameHuesped;
 	private String surname;
 	private Date birthdate;
