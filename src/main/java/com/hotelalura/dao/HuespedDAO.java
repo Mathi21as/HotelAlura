@@ -16,10 +16,13 @@ public class HuespedDAO {
 		
 		try {
 			em.getTransaction().begin();
-			huespedRes = (Huesped) em.createQuery(query, Huesped.class).setParameter("phone", (huesped.getPhone())).getResultList().get(0);
+			huespedRes = (Huesped) em.createQuery(query, Huesped.class)
+					.setParameter("phone", (huesped.getPhone()))
+					.getResultList().get(0);
 			em.close();
 		} catch (IndexOutOfBoundsException e) {
-			
+			System.out.println("IndexOutOfBoundsException por intentar buscar un "
+					+ "usuario inexistente en la clase HuespedDAO metodo insert.");
 		}
 		
 		if(huespedRes != null)
@@ -40,7 +43,7 @@ public class HuespedDAO {
 
 	public List<Huesped> findAll (){
 		EntityManager em = JPAUtils.getEntityManager();
-		String query = "SELECT * FROM Huesped AS h";
+		String query = "SELECT h FROM Huesped AS h";
 		List<Huesped> list;
 
 		em.getTransaction().begin();
@@ -52,11 +55,11 @@ public class HuespedDAO {
 
 	public List<Huesped> findByLastname(String surname){
 		EntityManager em = JPAUtils.getEntityManager();
-		String query = "SELECT * FROM Huesped AS h WHERE h.surname = :surname";
+		String query = "SELECT h FROM Huesped AS h WHERE h.surname = :surname";
 		List<Huesped> list;
 
 		em.getTransaction().begin();
-		list = em.createQuery(query, Huesped.class).getResultList();
+		list = em.createQuery(query, Huesped.class).setParameter("surname", surname).getResultList();
 		em.close();
 
 		return list;

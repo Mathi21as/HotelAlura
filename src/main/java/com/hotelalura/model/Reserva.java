@@ -2,6 +2,8 @@ package com.hotelalura.model;
 
 import com.hotelalura.model.Huesped;
 
+import jakarta.persistence.JoinColumn;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -19,6 +21,7 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	@ManyToOne
+	@JoinColumn(name="huesped_id")
 	private Huesped huesped;
 	private Date entryDate;
 	private Date departureDate;

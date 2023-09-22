@@ -6,6 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.hotelalura.dao.HuespedDAO;
+import com.hotelalura.dao.ReservaDAO;
+import com.hotelalura.model.Huesped;
+import com.hotelalura.model.Reserva;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,6 +21,7 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
@@ -25,6 +32,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.math.BigInteger;
 
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
@@ -37,7 +45,14 @@ public class Busqueda extends JFrame {
 	private DefaultTableModel modeloHuesped;
 	private JLabel labelAtras;
 	private JLabel labelExit;
+	JScrollPane scroll_table;
+	JScrollPane scroll_tableHuespedes;
 	int xMouse, yMouse;
+	
+	private HuespedDAO huespedDAO;
+	private List<Huesped> listHuespedes;
+	private ReservaDAO reservaDAO;
+	private List<Reserva> listReservas;
 
 	/**
 	 * Launch the application.
@@ -90,8 +105,6 @@ public class Busqueda extends JFrame {
 		contentPane.add(panel);
 
 		
-		
-		
 		tbReservas = new JTable();
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -101,7 +114,16 @@ public class Busqueda extends JFrame {
 		modelo.addColumn("Fecha Check Out");
 		modelo.addColumn("Valor");
 		modelo.addColumn("Forma de Pago");
-		JScrollPane scroll_table = new JScrollPane(tbReservas);
+		reservaDAO = new ReservaDAO();
+		listReservas = reservaDAO.findAll();
+		for(int registro=0; registro<listReservas.size();registro++) {
+			modelo.addRow(new Object[] {listReservas.get(registro).getId().toString(),
+					listReservas.get(registro).getEntryDate().toString(),
+					listReservas.get(registro).getDepartureDate().toString(),
+					listReservas.get(registro).getValue().toString(),
+					listReservas.get(registro).getWayToPay().toString()});
+		}
+		scroll_table = new JScrollPane(tbReservas);
 		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/com/hotelalura/imagenes/reservado.png")), scroll_table, null);
 		scroll_table.setVisible(true);
 		
@@ -117,7 +139,18 @@ public class Busqueda extends JFrame {
 		modeloHuesped.addColumn("Nacionalidad");
 		modeloHuesped.addColumn("Telefono");
 		modeloHuesped.addColumn("Número de Reserva");
-		JScrollPane scroll_tableHuespedes = new JScrollPane(tbHuespedes);
+		huespedDAO = new HuespedDAO();
+		listHuespedes = huespedDAO.findAll();
+		for(int registro=0; registro<listHuespedes.size();registro++) {
+			modeloHuesped.addRow(new Object[] {listHuespedes.get(registro).getId().toString(),
+					listHuespedes.get(registro).getName(),
+					listHuespedes.get(registro).getSurname(),
+					listHuespedes.get(registro).getBirthdate().toString(),
+					listHuespedes.get(registro).getNationality(),
+					listHuespedes.get(registro).getPhone(),
+					listHuespedes.get(registro).getReservas().get(listHuespedes.get(registro).getReservas().size()-1).getId().toString()});
+		}
+		scroll_tableHuespedes = new JScrollPane(tbHuespedes);
 		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/com/hotelalura/imagenes/pessoas.png")), scroll_tableHuespedes, null);
 		scroll_tableHuespedes.setVisible(true);
 		
@@ -216,7 +249,22 @@ public class Busqueda extends JFrame {
 		btnbuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				String buscar = txtBuscar.getText();
+				if(buscar.charAt(0) >= 48 || buscar.charAt(0) <= 57) {
+					for(Reserva reserva :listReservas) {
+						if(reserva.getId() == BigInteger.valueOf(Long.valueOf(buscar))) {
+							for(int i=0; i<modelo.getRowCount(); i++) {
+								modelo.removeRow(i);
+							}
+							modelo.addRow(new Object[] {reserva.getId().toString(),
+									reserva.getEntryDate().toString(), 
+									reserva.getDepartureDate().toString(), 
+									reserva.getValue().toString(), 
+									reserva.getWayToPay()});
+						}
+						
+					}
+				}
 			}
 		});
 		btnbuscar.setLayout(null);

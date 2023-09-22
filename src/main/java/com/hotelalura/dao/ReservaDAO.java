@@ -42,7 +42,7 @@ public class ReservaDAO {
 	public List<Reserva> findAll (){
 		EntityManager em = JPAUtils.getEntityManager();
 		List<Reserva> reservas;
-		String query = "SELECT * FROM Reserva AS r";
+		String query = "SELECT r FROM Reserva AS r";
 
 		em.getTransaction().begin();
 		reservas = em.createQuery(query, Reserva.class).getResultList();
