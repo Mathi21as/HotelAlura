@@ -66,7 +66,6 @@ public class ReservasView extends JFrame {
 	//public ReservasView() {}
 	
 	public ReservasView() {
-		super("Reserva");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/com/hotelalura/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);

@@ -46,25 +46,25 @@ public class Huesped {
 	}
 	
 	public String getName() {
-		return name_huesped;
+		return this.name_huesped;
 	}
 	public void setName(String name) {
 		this.name_huesped = name;
 	}
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 	public Date getBirthdate() {
-		return birthdate;
+		return this.birthdate;
 	}
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;

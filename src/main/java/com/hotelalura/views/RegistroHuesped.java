@@ -51,9 +51,9 @@ public class RegistroHuesped extends JFrame {
 	 * Launch the application.
 	 */
 
-	private static RegistroHuesped frame;
+	private RegistroHuesped frame;
 	
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -242,7 +242,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setEditable(false);
-		txtNreserva.setText(getMaxIdReserva()); //TODO: agree the booking id for this huesped
+		txtNreserva.setText(getMaxIdReserva());
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -306,7 +306,7 @@ public class RegistroHuesped extends JFrame {
 					reserva.setHuesped(huesped);
 				
 				reservaDAO.insert(reserva);
-				frame.setVisible(false);
+				frame.dispose();
 			}
 		});
 		btnguardar.setLayout(null);

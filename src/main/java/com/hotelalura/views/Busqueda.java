@@ -250,10 +250,10 @@ public class Busqueda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String buscar = txtBuscar.getText();
-				if(buscar.charAt(0) >= 48 || buscar.charAt(0) <= 57) {
+				if(buscar.charAt(0) >= 48 && buscar.charAt(0) <= 57) {
 					for(Reserva reserva :listReservas) {
 						if(reserva.getId() == BigInteger.valueOf(Long.valueOf(buscar))) {
-							for(int i=0; i<modelo.getRowCount(); i++) {
+							for(int i=0; i<=modelo.getRowCount()-1; i++) {
 								modelo.removeRow(i);
 							}
 							modelo.addRow(new Object[] {reserva.getId().toString(),
@@ -261,8 +261,26 @@ public class Busqueda extends JFrame {
 									reserva.getDepartureDate().toString(), 
 									reserva.getValue().toString(), 
 									reserva.getWayToPay()});
+							break;
 						}
 						
+					}
+				} 
+				else {
+					for(Huesped huesped :listHuespedes) {
+						if(huesped.getSurname().equals(buscar)) {
+							for(int i=0; i<modeloHuesped.getRowCount(); i++) {
+								modeloHuesped.removeRow(i);
+							}
+							modeloHuesped.addRow(new Object[] {huesped.getId().toString(),
+									huesped.getName(),
+									huesped.getSurname(),
+									huesped.getBirthdate().toString(),
+									huesped.getNationality(),
+									huesped.getPhone(),
+									huesped.getReservas().get(huesped.getReservas().size()-1).getId().toString()});
+							break;
+						}
 					}
 				}
 			}
