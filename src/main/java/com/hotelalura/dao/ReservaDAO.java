@@ -62,13 +62,13 @@ public class ReservaDAO {
 		return reserva;
 	}
 
-	public void update(BigInteger id) {
+	public void update(Reserva reserva, BigInteger id) {
 		EntityManager em = JPAUtils.getEntityManager();
 		Reserva reservaUpdate;
 		
 		em.getTransaction().begin();
 		reservaUpdate = em.find(Reserva.class, id);
-		//Insert update fields
+		reservaUpdate.setValue(reserva.getValue());
 		em.getTransaction().commit();
 		em.close();
 	}

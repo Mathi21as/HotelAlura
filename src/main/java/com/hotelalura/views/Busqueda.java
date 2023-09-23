@@ -303,6 +303,26 @@ public class Busqueda extends JFrame {
 		btnEditar.setBackground(new Color(12, 138, 199));
 		btnEditar.setBounds(635, 508, 122, 35);
 		btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(panel.getSelectedIndex() == 0) {
+					ReservasView reservasView = new ReservasView(BigInteger.
+							valueOf(Long.
+									valueOf(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString()))); //tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString()
+					reservasView.setVisible(true);
+				}
+				else if(panel.getSelectedIndex() == 1) {
+					RegistroHuesped registroHuesped = new RegistroHuesped(BigInteger.
+							valueOf(Long.
+									valueOf(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString())));
+					registroHuesped.setVisible(true);
+				}
+				else {
+					return;
+				}
+			}
+		});
 		contentPane.add(btnEditar);
 		
 		JLabel lblEditar = new JLabel("EDITAR");
@@ -317,6 +337,22 @@ public class Busqueda extends JFrame {
 		btnEliminar.setBackground(new Color(12, 138, 199));
 		btnEliminar.setBounds(767, 508, 122, 35);
 		btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(panel.getSelectedIndex() == 0) {
+					ReservaDAO reservaDAO = new ReservaDAO();
+					reservaDAO.delete(BigInteger.valueOf(Long.valueOf(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString())));
+					}
+				else if(panel.getSelectedIndex() == 1) {
+					HuespedDAO huspedDAO = new HuespedDAO();
+					
+				}
+				else {
+					return;
+				}
+			}
+		});
 		contentPane.add(btnEliminar);
 		
 		JLabel lblEliminar = new JLabel("ELIMINAR");

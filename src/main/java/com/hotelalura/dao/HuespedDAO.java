@@ -1,6 +1,5 @@
 package com.hotelalura.dao;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -65,11 +64,11 @@ public class HuespedDAO {
 		return list;
 	}
 	
-	public void update(BigInteger id) {
+	public void update(Huesped huesped) {
 		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
-		Huesped huespedUpdate = em.find(Huesped.class, id);
-		//Insert update fields
+		Huesped huespedUpdate = em.find(Huesped.class, huesped.getId());
+		huespedUpdate = huesped;
 		em.getTransaction().commit();
 		em.close();
 	}
