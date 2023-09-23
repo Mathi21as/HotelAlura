@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Huesped {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
-	@OneToMany(mappedBy = "huesped")
+	@OneToMany(mappedBy = "huesped", cascade=CascadeType.ALL)
 	private List<Reserva> reservas = new ArrayList<>();
 	private String name_huesped;
 	private String surname;

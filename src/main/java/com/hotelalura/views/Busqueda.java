@@ -148,7 +148,16 @@ public class Busqueda extends JFrame {
 					listHuespedes.get(registro).getBirthdate().toString(),
 					listHuespedes.get(registro).getNationality(),
 					listHuespedes.get(registro).getPhone(),
-					listHuespedes.get(registro).getReservas().get(listHuespedes.get(registro).getReservas().size()-1).getId().toString()});
+					listHuespedes.get(registro).getReservas().isEmpty() ? 
+							"" : listHuespedes.
+							get(registro).
+							getReservas().
+							get(listHuespedes.
+									get(registro).
+									getReservas().
+									size()-1).
+							getId().
+							toString()});
 		}
 		scroll_tableHuespedes = new JScrollPane(tbHuespedes);
 		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/com/hotelalura/imagenes/pessoas.png")), scroll_tableHuespedes, null);
@@ -343,10 +352,12 @@ public class Busqueda extends JFrame {
 				if(panel.getSelectedIndex() == 0) {
 					ReservaDAO reservaDAO = new ReservaDAO();
 					reservaDAO.delete(BigInteger.valueOf(Long.valueOf(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString())));
+					modelo.removeRow(tbReservas.getSelectedRow());
 					}
 				else if(panel.getSelectedIndex() == 1) {
 					HuespedDAO huspedDAO = new HuespedDAO();
-					
+					huespedDAO.delete(BigInteger.valueOf(Long.valueOf(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString())));
+					modeloHuesped.removeRow(tbHuespedes.getSelectedRow());
 				}
 				else {
 					return;

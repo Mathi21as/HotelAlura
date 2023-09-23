@@ -302,15 +302,10 @@ public class ReservasView extends JFrame {
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
-					System.out.println("desde siguiente update reserva");
-					Reserva reserva = new Reserva(txtFechaEntrada.getDate(), txtFechaSalida.getDate(), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
-					ReservaDAO reservaDAO = new ReservaDAO();
-					reservaDAO.update(reserva, id);
-				} else {
-					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
-				}
-			}						
+				Reserva reserva = new Reserva(txtFechaEntrada.getDate(), txtFechaSalida.getDate(), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
+				ReservaDAO reservaDAO = new ReservaDAO();
+				reservaDAO.update(reserva, id);
+			}
 		});
 		btnsiguiente.setLayout(null);
 		btnsiguiente.add(lblSiguiente);

@@ -1,5 +1,6 @@
 package com.hotelalura.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -64,19 +65,28 @@ public class HuespedDAO {
 		return list;
 	}
 	
-	public void update(Huesped huesped) {
+	public void update(Huesped huesped, BigInteger id) {
 		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
-		Huesped huespedUpdate = em.find(Huesped.class, huesped.getId());
-		huespedUpdate = huesped;
+		Huesped huespedUpdate = em.find(Huesped.class, id);
+		if(!huesped.getName().equals(""))
+			huespedUpdate.setName(huesped.getName());
+		if(!huesped.getSurname().equals(""))
+			huespedUpdate.setSurname(huesped.getSurname());
+		if(!huesped.getBirthdate().equals(null))
+			huespedUpdate.setBirthdate(huesped.getBirthdate());
+		if(!huesped.getNationality().equals(""))
+			huespedUpdate.setNationality(huesped.getNationality());
+		if(!huesped.getPhone().equals(""))
+			huespedUpdate.setPhone(huesped.getPhone());
 		em.getTransaction().commit();
 		em.close();
 	}
 	
-	public void delete(Huesped huesped) {
+	public void delete(BigInteger id) {
 		EntityManager em = JPAUtils.getEntityManager();
 		em.getTransaction().begin();
-		Huesped huespedDel = em.find(Huesped.class, huesped.getId());
+		Huesped huespedDel = em.find(Huesped.class, id);
 		em.remove(huespedDel);
 		em.getTransaction().commit();
 		em.close();

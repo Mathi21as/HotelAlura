@@ -242,7 +242,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setEditable(false);
-		txtNreserva.setText(getMaxIdReserva());
+		txtNreserva.setText("");
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -295,17 +295,8 @@ public class RegistroHuesped extends JFrame {
 						txtFechaN.getDate(), 
 						txtTelefono.getText(), 
 						txtNacionalidad.getSelectedItem().toString());
-				Huesped huespedRes;
 				HuespedDAO huespedDAO = new HuespedDAO();
-				ReservaDAO reservaDAO = new ReservaDAO();
-				huespedRes = huespedDAO.insert(huesped);
-				
-				if(huespedRes != null)
-					//reserva.setHuesped(huespedRes);
-				//else
-					//reserva.setHuesped(huesped);
-				
-				//reservaDAO.insert(reserva);
+				huespedDAO.update(huesped, id);
 				frame.dispose();
 			}
 		});

@@ -68,7 +68,14 @@ public class ReservaDAO {
 		
 		em.getTransaction().begin();
 		reservaUpdate = em.find(Reserva.class, id);
-		reservaUpdate.setValue(reserva.getValue());
+		if(!reserva.getEntryDate().equals(null))
+			reservaUpdate.setEntryDate(reserva.getEntryDate());
+		if(!reserva.getDepartureDate().equals(null))
+			reservaUpdate.setDepartureDate(reserva.getDepartureDate());
+		if(!reserva.getValue().equals(""))
+			reservaUpdate.setValue(reserva.getValue());
+		if(!reserva.getWayToPay().equals(""))
+			reservaUpdate.setWayToPay(reserva.getWayToPay());
 		em.getTransaction().commit();
 		em.close();
 	}
