@@ -73,7 +73,7 @@ public class HuespedDAO {
 			huespedUpdate.setName(huesped.getName());
 		if(!huesped.getSurname().equals(""))
 			huespedUpdate.setSurname(huesped.getSurname());
-		if(!huesped.getBirthdate().equals(null))
+		if(huesped.getBirthdate() != null)
 			huespedUpdate.setBirthdate(huesped.getBirthdate());
 		if(!huesped.getNationality().equals(""))
 			huespedUpdate.setNationality(huesped.getNationality());

@@ -57,8 +57,8 @@ public class RegistroHuesped extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new RegistroHuesped();
-					frame.setVisible(true);
+					//frame = new RegistroHuesped();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,8 +69,9 @@ public class RegistroHuesped extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
-	public RegistroHuesped() {}
+	//public RegistroHuesped() {}
 	
 	public RegistroHuesped(BigInteger id) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
@@ -99,6 +100,37 @@ public class RegistroHuesped extends JFrame {
 				headerMousePressed(e);
 			}
 		});
+		
+		JPanel btnexit = new JPanel();
+		btnexit.setBounds(857, 0, 53, 36);
+		contentPane.add(btnexit);
+		btnexit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuPrincipal principal = new MenuPrincipal();
+				principal.setVisible(true);
+				cerrar(0);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnexit.setBackground(Color.red);
+				labelExit.setForeground(Color.white);
+			}			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				 btnexit.setBackground(Color.white);
+			     labelExit.setForeground(Color.black);
+			}
+		});
+		btnexit.setLayout(null);
+		btnexit.setBackground(Color.white);
+		
+		labelExit = new JLabel("X");
+		labelExit.setBounds(0, 0, 53, 36);
+		btnexit.add(labelExit);
+		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
+		labelExit.setForeground(SystemColor.black);
+		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		header.setLayout(null);
 		header.setBackground(SystemColor.text);
 		header.setOpaque(false);
@@ -109,9 +141,7 @@ public class RegistroHuesped extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
-				dispose();				
+				cerrar(1);			
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -297,7 +327,7 @@ public class RegistroHuesped extends JFrame {
 						txtNacionalidad.getSelectedItem().toString());
 				HuespedDAO huespedDAO = new HuespedDAO();
 				huespedDAO.update(huesped, id);
-				frame.dispose();
+				cerrar(1);
 			}
 		});
 		btnguardar.setLayout(null);
@@ -327,6 +357,37 @@ public class RegistroHuesped extends JFrame {
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
 		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));
+	}
+	
+	
+	
+	public RegistroHuesped(Reserva reserva) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 910, 634);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.text);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
+		contentPane.setLayout(null);
+		
+		JPanel header = new JPanel();
+		header.setBounds(0, 0, 910, 36);
+		header.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				headerMouseDragged(e);
+			     
+			}
+		});
+		header.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				headerMousePressed(e);
+			}
+		});
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(857, 0, 53, 36);
@@ -358,35 +419,6 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
-	}
-	
-	public RegistroHuesped(Reserva reserva) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 910, 634);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.text);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		setLocationRelativeTo(null);
-		setUndecorated(true);
-		contentPane.setLayout(null);
-		
-		JPanel header = new JPanel();
-		header.setBounds(0, 0, 910, 36);
-		header.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				headerMouseDragged(e);
-			     
-			}
-		});
-		header.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				headerMousePressed(e);
-			}
-		});
 		header.setLayout(null);
 		header.setBackground(SystemColor.text);
 		header.setOpaque(false);
@@ -594,7 +626,7 @@ public class RegistroHuesped extends JFrame {
 					reserva.setHuesped(huesped);
 				
 				reservaDAO.insert(reserva);
-				frame.dispose();
+				cerrar(1);
 			}
 		});
 		btnguardar.setLayout(null);
@@ -624,37 +656,6 @@ public class RegistroHuesped extends JFrame {
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
 		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));
-		
-		JPanel btnexit = new JPanel();
-		btnexit.setBounds(857, 0, 53, 36);
-		contentPane.add(btnexit);
-		btnexit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
-				dispose();
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnexit.setBackground(Color.red);
-				labelExit.setForeground(Color.white);
-			}			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 btnexit.setBackground(Color.white);
-			     labelExit.setForeground(Color.black);
-			}
-		});
-		btnexit.setLayout(null);
-		btnexit.setBackground(Color.white);
-		
-		labelExit = new JLabel("X");
-		labelExit.setBounds(0, 0, 53, 36);
-		btnexit.add(labelExit);
-		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
-		labelExit.setForeground(SystemColor.black);
-		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
 	
 	public String getMaxIdReserva() {
@@ -662,6 +663,13 @@ public class RegistroHuesped extends JFrame {
 		return res.getMaxId();
 	}
 	
+	public void cerrar(Integer i) {
+		switch(i) {
+			case 0: this.setVisible(false);
+				break;
+			case 1: this.dispose();
+		}
+	}
 	
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
