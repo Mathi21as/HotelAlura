@@ -23,6 +23,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -74,6 +76,8 @@ public class RegistroHuesped extends JFrame {
 	//public RegistroHuesped() {}
 	
 	public RegistroHuesped(BigInteger id) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
@@ -82,7 +86,6 @@ public class RegistroHuesped extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
 		contentPane.setLayout(null);
 		
 		JPanel header = new JPanel();
@@ -107,8 +110,8 @@ public class RegistroHuesped extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
+				MenuUsuario usuario = new MenuUsuario();
+				usuario.setVisible(true);
 				cerrar(0);
 			}
 			@Override
@@ -141,6 +144,8 @@ public class RegistroHuesped extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Busqueda busqueda = new Busqueda();
+				busqueda.setVisible(true);
 				cerrar(1);			
 			}
 			@Override
@@ -173,6 +178,19 @@ public class RegistroHuesped extends JFrame {
 		txtNombre.setBackground(Color.WHITE);
 		txtNombre.setColumns(10);
 		txtNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtNombre);
 		
 		txtApellido = new JTextField();
@@ -181,6 +199,19 @@ public class RegistroHuesped extends JFrame {
 		txtApellido.setColumns(10);
 		txtApellido.setBackground(Color.WHITE);
 		txtApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtApellido);
 		
 		txtFechaN = new JDateChooser();
@@ -195,7 +226,7 @@ public class RegistroHuesped extends JFrame {
 		txtNacionalidad.setBackground(SystemColor.text);
 		txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNacionalidad.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"afgano-afgana", "alemán-", "alemana", "árabe-árabe", 
+				"afgano-afgana", "alemán-alemana", "árabe-árabe", 
 				"argentino-argentina", "australiano-australiana", "belga-belga", 
 				"boliviano-boliviana", "brasileño-brasileña", "camboyano-camboyana", 
 				"canadiense-canadiense", "chileno-chilena", "chino-china", 
@@ -254,6 +285,19 @@ public class RegistroHuesped extends JFrame {
 		txtTelefono.setColumns(10);
 		txtTelefono.setBackground(Color.WHITE);
 		txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = (key >= 48 && key <= 57) || key == 43;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtTelefono);
 		
 		JLabel lblTitulo = new JLabel("REGISTRO HUÉSPED");
@@ -356,12 +400,14 @@ public class RegistroHuesped extends JFrame {
 		JLabel logo = new JLabel("");
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
-		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));}});
 	}
 	
 	
 	
 	public RegistroHuesped(Reserva reserva) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
@@ -370,7 +416,6 @@ public class RegistroHuesped extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
 		contentPane.setLayout(null);
 		
 		JPanel header = new JPanel();
@@ -395,9 +440,9 @@ public class RegistroHuesped extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
-				dispose();
+				MenuUsuario usuario = new MenuUsuario();
+				usuario.setVisible(true);
+				cerrar(0);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -430,6 +475,7 @@ public class RegistroHuesped extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ReservasView reservas = new ReservasView();
+				reservas.setUndecorated(true);
 				reservas.setVisible(true);
 				dispose();				
 			}
@@ -463,6 +509,19 @@ public class RegistroHuesped extends JFrame {
 		txtNombre.setBackground(Color.WHITE);
 		txtNombre.setColumns(10);
 		txtNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtNombre);
 		
 		txtApellido = new JTextField();
@@ -471,6 +530,19 @@ public class RegistroHuesped extends JFrame {
 		txtApellido.setColumns(10);
 		txtApellido.setBackground(Color.WHITE);
 		txtApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtApellido);
 		
 		txtFechaN = new JDateChooser();
@@ -485,7 +557,7 @@ public class RegistroHuesped extends JFrame {
 		txtNacionalidad.setBackground(SystemColor.text);
 		txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNacionalidad.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"afgano-afgana", "alemán-", "alemana", "árabe-árabe", 
+				"afgano-afgana", "alemán-alemana", "árabe-árabe", 
 				"argentino-argentina", "australiano-australiana", "belga-belga", 
 				"boliviano-boliviana", "brasileño-brasileña", "camboyano-camboyana", 
 				"canadiense-canadiense", "chileno-chilena", "chino-china", 
@@ -544,6 +616,19 @@ public class RegistroHuesped extends JFrame {
 		txtTelefono.setColumns(10);
 		txtTelefono.setBackground(Color.WHITE);
 		txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = (key >= 48 && key <= 57) || key == 43;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		contentPane.add(txtTelefono);
 		
 		JLabel lblTitulo = new JLabel("REGISTRO HUÉSPED");
@@ -655,7 +740,7 @@ public class RegistroHuesped extends JFrame {
 		JLabel logo = new JLabel("");
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
-		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/com/hotelalura/imagenes/Ha-100px.png")));}});
 	}
 	
 	public String getMaxIdReserva() {

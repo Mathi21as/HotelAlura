@@ -318,13 +318,17 @@ public class Busqueda extends JFrame {
 				if(panel.getSelectedIndex() == 0) {
 					ReservasView reservasView = new ReservasView(BigInteger.
 							valueOf(Long.
-									valueOf(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString()))); //tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString()
+									valueOf(tbReservas.getValueAt(tbReservas.getSelectedRow(), 0).toString())));
+					reservasView.setUndecorated(true);
+					dispose();
 					reservasView.setVisible(true);
 				}
 				else if(panel.getSelectedIndex() == 1) {
 					RegistroHuesped registroHuesped = new RegistroHuesped(BigInteger.
 							valueOf(Long.
 									valueOf(tbHuespedes.getValueAt(tbHuespedes.getSelectedRow(), 0).toString())));
+					registroHuesped.setUndecorated(true);
+					dispose();
 					registroHuesped.setVisible(true);
 				}
 				else {

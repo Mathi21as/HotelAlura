@@ -20,6 +20,8 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -65,6 +67,8 @@ public class ReservasView extends JFrame {
 	 */
 	
 	public ReservasView(BigInteger id) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 			setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/com/hotelalura/imagenes/aH-40px.png")));
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 910, 560);
@@ -75,7 +79,6 @@ public class ReservasView extends JFrame {
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
 			setResizable(false);
-			setUndecorated(true);
 			setLocationRelativeTo(null);
 			
 	
@@ -215,6 +218,8 @@ public class ReservasView extends JFrame {
 			btnAtras.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					Busqueda busqueda = new Busqueda();
+					busqueda.setVisible(true);
 					cerrar(1);			
 				}
 				@Override
@@ -283,6 +288,19 @@ public class ReservasView extends JFrame {
 			txtValor.setBounds(78, 328, 43, 33);
 			txtValor.setEditable(true);
 			txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
+			txtValor.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }
+				}
+			});
 			txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 			panel.add(txtValor);
 			txtValor.setColumns(10);
@@ -311,10 +329,12 @@ public class ReservasView extends JFrame {
 			btnsiguiente.setBackground(SystemColor.textHighlight);
 			btnsiguiente.setBounds(238, 493, 122, 35);
 			panel.add(btnsiguiente);
-			btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+			btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));}});
 	}
 	
 	public ReservasView() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/com/hotelalura/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
@@ -326,7 +346,6 @@ public class ReservasView extends JFrame {
 		contentPane.setLayout(null);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
 		
 
 		
@@ -535,6 +554,19 @@ public class ReservasView extends JFrame {
 		txtValor.setBounds(78, 328, 43, 33);
 		txtValor.setEditable(true);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
+		txtValor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panel.add(txtValor);
 		txtValor.setColumns(10);
@@ -555,7 +587,9 @@ public class ReservasView extends JFrame {
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
 					Reserva reserva = new Reserva(txtFechaEntrada.getDate(), txtFechaSalida.getDate(), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
 					RegistroHuesped registro = new RegistroHuesped(reserva);
+					registro.setUndecorated(true);
 					registro.setVisible(true);
+					setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
@@ -566,7 +600,7 @@ public class ReservasView extends JFrame {
 		btnsiguiente.setBackground(SystemColor.textHighlight);
 		btnsiguiente.setBounds(238, 493, 122, 35);
 		panel.add(btnsiguiente);
-		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));}});
 	}
 	
 	public void cerrar(Integer i) {
